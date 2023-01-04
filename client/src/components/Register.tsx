@@ -1,10 +1,12 @@
 import { FC, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import '../styles/Register.css'
 import axios from "axios";
 
 const Register:FC = () => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const navigate = useNavigate();
 
     const register = (e: React.SyntheticEvent): void => {
         e.preventDefault();
@@ -13,6 +15,8 @@ const Register:FC = () => {
             username: username,
             password: password,
         })
+
+        navigate('/')
     }
 
     return(

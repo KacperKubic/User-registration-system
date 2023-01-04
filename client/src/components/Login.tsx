@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import '../styles/Login.css';
 
@@ -23,21 +23,34 @@ const Login:FC = () => {
         })
     }
 
+    useEffect(() => {
+        axios.get("http://localhost:3001/cookies").then((response) => {
+            if(response.data.loggedIn === true){
+                setLoginStatus(response.data.user)
+            }
+        })
+    })
+
     return(
         <div className="loginPage">
-            <div className="loginPageContent">
-                <div className="inputs">
-                    <label>Username:</label>
-                    <input type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setUsername(e.target.value)}}/>
-                    <label>Password:</label>
-                    <input type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setPassword(e.target.value)}}/>
+            {loginStatus === "" ? (
+                <div className="loginPageContent">
+                    <div className="inputs">
+                        <label>Username:</label>
+                        <input type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setUsername(e.target.value)}}/>
+                        <label>Password:</label>
+                        <input type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setPassword(e.target.value)}}/>
+                    </div>
+                    <div className="options">
+                        <button onClick={login}>Login</button>
+                        <Link to='/register'>Doesn't have an account? Register</Link>
+                    </div>
                 </div>
-                <div className="options">
-                    <button onClick={login}>Login</button>
-                    <Link to='/register'>Doesn't have an account? Register</Link>
+            ) : (
+                <div className="loginPageContent">
+                    {loginStatus}
                 </div>
-                {loginStatus}
-            </div>
+            )}
         </div>
     )
 }
