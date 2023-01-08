@@ -49,3 +49,24 @@
     text-decoration: none;
     margin-left: 20px;
 }
+
+.loggedIn{
+    background-color: #307351;
+    min-height: 300px;
+    height: auto;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.loggedIn button{
+    width: 90%;
+    height: 10%;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 8px;
+}
